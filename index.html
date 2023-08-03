@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>2048 Game</title>
+  <style>
+    .tile {
+      width: 100px;
+      height: 100px;
+      background-color: #EEE4DA;
+      font-size: 36px;
+      font-weight: bold;
+      text-align: center;
+      line-height: 100px;
+      margin: 5px;
+      float: left;
+    }
+
+    .row::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  </style>
+</head>
+<body>
+<div id="board"></div>
+<button id="leftButton">Left</button>
+<button id="rightButton">Right</button>
+<button id="upButton">Up</button>
+<button id="downButton">Down</button>
+<script src="game.js"></script>
+</body>
+</html>
