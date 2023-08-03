@@ -20,14 +20,36 @@
       display: table;
       clear: both;
     }
+    button {
+  width: 160px;
+  height: 80px;
+  background-color: yellow;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 100px;
+  margin: 5px;
+}
+    .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 420px; /* 调整容器的高度以适应您的需求 */
+  flex-direction: column;
+}
   </style>
 </head>
 <body>
+  <div class="container">
 <div id="board"></div>
 <button id="leftButton">Left</button>
 <button id="rightButton">Right</button>
 <button id="upButton">Up</button>
 <button id="downButton">Down</button>
+</div>
+
 <script src="game.js"></script>
+
 </body>
 </html>
