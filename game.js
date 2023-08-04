@@ -1,9 +1,12 @@
 let board;
 var aim
+var end=0;
 // 初始化游戏面板
 function initBoard() {
+    end=0;
     board = new Array(4);
-
+    aim=document.getElementById("aim").value;
+    document.getElementById("gameOver").style.display = "none";
     for (let i = 0; i < 4; i++) {
         board[i] = new Array(4);
         for (let j = 0; j < 4; j++) {
@@ -31,7 +34,8 @@ function generateRandomTile(value) {
     if (!hasEmptyTile()) {
         document.getElementById("gameOver").style.display = "block";
         // 没有空位置，结束函数或抛出错误提示
-        window.alert("废物!");
+        end=1;
+        document.getElementById("gameOver").innerHTML = "废物!";
         return;
     }
     let row, col;
@@ -52,7 +56,8 @@ function updateBoard() {
         for (let j = 0; j < 4; j++) {
             if(board[i][j] >= aim) {
                 document.getElementById("gameOver").style.display = "block";
-                window.alert("赢!");
+                end=2;
+                document.getElementById("gameOver").innerHTML = "赢赢赢!";
             }
             const tile = document.createElement("div");
             tile.className = "tile";
@@ -61,6 +66,21 @@ function updateBoard() {
         }
         boardDiv.appendChild(document.createElement("div")).className = "row";
     }
+    switch (end){
+        case 0:
+            break;
+        case 1:
+            setTimeout(function() {
+                window.alert("废物!");
+              }, 1000); // 延迟1秒后执行alert
+            break;
+        case 2:
+            setTimeout(function() {
+                window.alert("赢赢赢！");
+              }, 1000); // 延迟1秒后执行alert
+            break;
+    }
+
 }
 
 // 移动方块
@@ -163,7 +183,8 @@ generateRandomTile(2);
         if (!canMoveTiles()) {
             // 游戏结束逻辑
             document.getElementById("gameOver").style.display = "block";
-            window.alert("废物!");
+            end=1;
+            document.getElementById("gameOver").innerHTML = "废物!";
         }
     }
 }
