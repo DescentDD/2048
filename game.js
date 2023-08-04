@@ -1,5 +1,5 @@
 let board;
-
+var aim
 // 初始化游戏面板
 function initBoard() {
     board = new Array(4);
@@ -15,9 +15,25 @@ function initBoard() {
     generateRandomTile(2);
     updateBoard();
 }
-
+function hasEmptyTile() {
+    
+    for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 4; col++) {
+            if (board[row][col] === 0) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 // 在随机位置生成方块
 function generateRandomTile(value) {
+    if (!hasEmptyTile()) {
+        document.getElementById("gameOver").style.display = "block";
+        // 没有空位置，结束函数或抛出错误提示
+        window.alert("废物!");
+        return;
+    }
     let row, col;
     do {
         row = Math.floor(Math.random() * 4);
@@ -34,6 +50,10 @@ function updateBoard() {
 
     for (let i = 0; i < 4; i++) {
         for (let j = 0; j < 4; j++) {
+            if(board[i][j] >= aim) {
+                document.getElementById("gameOver").style.display = "block";
+                window.alert("赢!");
+            }
             const tile = document.createElement("div");
             tile.className = "tile";
             tile.innerHTML = board[i][j] === 0 ? "" : board[i][j];
@@ -133,15 +153,17 @@ function moveTiles(direction) {
     }
 
 
-
+generateRandomTile(2);
     // 同样的方式处理其他方向的移动
 
     if (moved) {
-        generateRandomTile(2);
+        
         updateBoard();
 
         if (!canMoveTiles()) {
             // 游戏结束逻辑
+            document.getElementById("gameOver").style.display = "block";
+            window.alert("废物!");
         }
     }
 }
@@ -155,6 +177,7 @@ function canMoveTiles() {
                 (row < 3 && board[row + 1][col] === board[row][col]) ||
                 (col > 0 && board[row][col - 1] === board[row][col]) ||
                 (col < 3 && board[row][col + 1] === board[row][col])) {
+                    console.log("can move");
                 return true;
             }
         }
@@ -164,6 +187,10 @@ function canMoveTiles() {
 
 // 初始化游戏
 function startGame() {
+    var containers = document.querySelectorAll(".container");
+    containers.forEach(function(container) {
+      container.style.display = "flex";
+    });
     initBoard();
     document.getElementById("leftButton").addEventListener("click", function() {
         moveTiles("left");
@@ -177,7 +204,26 @@ function startGame() {
     document.getElementById("downButton").addEventListener("click", function() {
         moveTiles("down");
     });
+    window.addEventListener("keydown", function(event) {
+        var key = event.key.toLowerCase();
+        switch (key) {
+          case "arrowleft":
+          case "a":
+            moveTiles("left");
+            break;
+          case "arrowright":
+          case "d":
+            moveTiles("right");
+            break;
+          case "arrowup":
+          case "w":
+            moveTiles("up");
+            break;
+          case "arrowdown":
+          case "s":
+            moveTiles("down");
+            break;
+        }
+      });
 }
 
-// 开始游戏
-startGame();
