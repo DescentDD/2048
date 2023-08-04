@@ -33,7 +33,6 @@ function hasEmptyTile() {
 function generateRandomTile(value) {
     if (!hasEmptyTile()) {
         document.getElementById("gameOver").style.display = "block";
-        // 没有空位置，结束函数或抛出错误提示
         end=1;
         document.getElementById("gameOver").innerHTML = "废物!";
         return;
@@ -72,12 +71,12 @@ function updateBoard() {
         case 1:
             setTimeout(function() {
                 window.alert("废物!");
-              }, 1000); // 延迟1秒后执行alert
+              }, 1000); 
             break;
         case 2:
             setTimeout(function() {
                 window.alert("赢赢赢！");
-              }, 1000); // 延迟1秒后执行alert
+              }, 1000); 
             break;
     }
 
@@ -174,14 +173,13 @@ function moveTiles(direction) {
 
 
 generateRandomTile(2);
-    // 同样的方式处理其他方向的移动
-
+    
     if (moved) {
         
         updateBoard();
 
         if (!canMoveTiles()) {
-            // 游戏结束逻辑
+            // 游戏结束
             document.getElementById("gameOver").style.display = "block";
             end=1;
             document.getElementById("gameOver").innerHTML = "废物!";
